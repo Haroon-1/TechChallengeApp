@@ -1,6 +1,8 @@
-FROM golang:alpine AS build
+FROM golang:1.15-alpine AS build
 
 RUN apk add --no-cache curl git alpine-sdk
+
+RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
 ARG SWAGGER_UI_VERSION=3.20.9
 
@@ -34,4 +36,4 @@ COPY --from=build /tmp/swagger/dist ./assets/swagger
 COPY --from=build /swagger.json ./assets/swagger/swagger.json
 COPY --from=build /TechChallengeApp TechChallengeApp
 
-ENTRYPOINT [ "./TechChallengeApp" ]
+ENTRYPOINT ["./TechChallengeApp"]
