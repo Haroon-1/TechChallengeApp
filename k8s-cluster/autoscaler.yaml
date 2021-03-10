@@ -1,0 +1,33 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  creationTimestamp: null
+  name: webapp
+spec:
+  maxReplicas: 5
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: webapp
+  targetCPUUtilizationPercentage: 50
+status:
+  currentReplicas: 0
+  desiredReplicas: 0
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  creationTimestamp: null
+  name: db
+spec:
+  maxReplicas: 5
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: db
+  targetCPUUtilizationPercentage: 50
+status:
+  currentReplicas: 0
+  desiredReplicas: 0

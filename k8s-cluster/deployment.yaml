@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: webapp
+  name: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - image: techchallengebuilds.azurecr.io/techchallengeapp:1.0
+        name: webapp
+        args: ["serve","./TechChallengeApp","updatedb"]
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+status: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: db
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: db
+    spec:
+      containers:
+      - image: techchallengebuilds.azurecr.io/postgres:10.7
+        name: postgres
+        resources: 
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: webapp
+  name: webapp
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+  selector:
+    app: webapp
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: db
+  name: db
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: db
+  type: ClusterIP
+status:
+  loadBalancer: {}
