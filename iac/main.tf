@@ -61,24 +61,70 @@ EOF
 }
 ## ACR for uploading the container images ##
 resource "azurerm_container_registry" "acr" {
-  name                     = "servianacr"
+  name                     = var.acr_name
   resource_group_name      = azurerm_resource_group.techchallenge_k8.name
   location                 = azurerm_resource_group.techchallenge_k8.location
   sku                      = "Basic"
   admin_enabled            = false
-  georeplication_locations = ["Australia East"]
 }
 
+## Outputs ##
+
+# Example attributes available for output
+output "id" {
+    value = azurerm_kubernetes_cluster.techchallenge_k8.id
+}
+
+output "client_key" {
+  value = azurerm_kubernetes_cluster.techchallenge_k8.kube_config.0.client_key
+}
+
+output "client_certificate" {
+  value = azurerm_kubernetes_cluster.techchallenge_k8.kube_config.0.client_certificate
+}
+
+output "cluster_ca_certificate" {
+  value = azurerm_kubernetes_cluster.techchallenge_k8.kube_config.0.cluster_ca_certificate
+}
+
+output "kube_config" {
+  value = azurerm_kubernetes_cluster.techchallenge_k8.kube_config_raw
+}
+
+output "host" {
+  value = azurerm_kubernetes_cluster.techchallenge_k8.kube_config.0.host
+}
 output "configure" {
   value = <<CONFIGURE
+Tag your docker image with the latest version for acr using the following command:
 
-Run the following commands to configure kubernetes client:
+$ docker tag haroondogar/techchallengeapp:1.0 ${var.acr_name}.azurecr.io/techchallengeapp:1.0
+$ docker tag postgres:10.7 ${var.acr_name}.azurecr.io/postgres:10.7
 
-$ terraform output kube_config > ~/.kube/aksconfig
-$ export KUBECONFIG=~/.kube/aksconfig
+Login to your acr and push the docker images to it using the below commands:
+$ az acr login --name ${var.acr_name}
+$ docker push ${var.acr_name}.azurecr.io/techchallengeapp:1.0
+$ docker push ${var.acr_name}.azurecr.io/postgres:10.7
+
+Run the following command to connect to the kubernetes cluster:
+
+$ az aks get-credentials --resource-group ${azurerm_resource_group.techchallenge_k8.name} --name ${var.cluster_name}
+
+Set the /.kube config as default
+
+$ export KUBECONFIG=~/.kube/config
 
 Test configuration using kubectl
 
 $ kubectl get nodes
+
+Run the following command to deploy the application:
+
+$ kubectl apply -f https://github.com/Haroon-1/TechChallengeApp/raw/testing-app/k8s-cluster/deployment.yaml
+
+Run the following command to set autoscaling:
+
+$ kubectl apply -f https://github.com/Haroon-1/TechChallengeApp/raw/testing-app/k8s-cluster/autoscaler.yaml
+
 CONFIGURE
 }

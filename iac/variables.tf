@@ -8,6 +8,10 @@ variable resource_group_name {
   default = "serviantechchallenge"
 }
 
+## ACR variables ##
+variable acr_name {
+  default = "servianacr"
+}
 
 ## AKS kubernetes cluster variables ##
 variable cluster_name {
