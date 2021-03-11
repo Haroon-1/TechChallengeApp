@@ -95,16 +95,6 @@ output "host" {
 }
 output "configure" {
   value = <<CONFIGURE
-Tag your docker image with the latest version for acr using the following command:
-
-$ docker tag haroondogar/techchallengeapp:1.0 ${var.acr_name}.azurecr.io/techchallengeapp:1.0
-$ docker tag postgres:10.7 ${var.acr_name}.azurecr.io/postgres:10.7
-
-Login to your acr and push the docker images to it using the below commands:
-$ az acr login --name ${var.acr_name}
-$ docker push ${var.acr_name}.azurecr.io/techchallengeapp:1.0
-$ docker push ${var.acr_name}.azurecr.io/postgres:10.7
-
 Run the following command to connect to the kubernetes cluster:
 
 $ az aks get-credentials --resource-group ${azurerm_resource_group.techchallenge_k8.name} --name ${var.cluster_name}
