@@ -18,7 +18,7 @@ spec:
         app: webapp
     spec:
       containers:
-      - image: techchallengebuilds.azurecr.io/techchallengeapp:1.0
+      - image: servianacr.azurecr.io/techchallengeapp:1.0
         name: webapp
         args: ["serve","./TechChallengeApp","updatedb"]
         resources:
@@ -48,7 +48,7 @@ spec:
         app: db
     spec:
       containers:
-      - image: techchallengebuilds.azurecr.io/postgres:10.7
+      - image: servianacr.azurecr.io/postgres:10.7
         name: postgres
         resources: 
           requests:
