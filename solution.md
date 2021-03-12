@@ -2,13 +2,13 @@
 
 ## Tested the application locally
 Rebuilt the application in docker to contain the database perimeters. 
-Used golang:1.15-alpine image to avoid GO111Module issues in the latest version.
+Used golang:1.15-alpine image
 Added dependencies within the docker file.
  
 ### Screenshot for application tested locally
-![application](Screenshot - Local.png)
+(Screenshot - Local.png)
 ### Screenshot for application tested through Azure (public address)
-![application2](Screenshot_oncloud.jpg)
+(Screenshot_oncloud.jpg)
 
 ## Deployed the application on Azure with AKS using Terraform on a 2-node cluster with autoscaling enabled.
 Pre-requisites include Azure CLI, Terraform and the AKS cli (kubectl). If using Cloud Shell, these are pre-installed.
