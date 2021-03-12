@@ -2,21 +2,21 @@
 
 ## Tested the application locally
 Rebuilt the application in docker to contain the database perimeters. 
-Used golang:1.15-alpine image
+Used golang:1.15-alpine image.
 Added dependencies within the docker file.
  
 ### Screenshot for application tested locally
-(Screenshot - Local.png)
+![local](Screenshot%20-%20Local.png)
 ### Screenshot for application tested through Azure (public address)
-(Screenshot_oncloud.jpg)
+![oncloud](Screenshot_oncloud.jpg)
 
 ## Deployed the application on Azure with AKS using Terraform on a 2-node cluster with autoscaling enabled.
 Pre-requisites include Azure CLI, Terraform and the AKS cli (kubectl). If using Cloud Shell, these are pre-installed.
-Ideally I would be using the Kubernetes provider in Terraform, but for this demo I have created two YAML files here.[first entry](k8s-cluster/)
+Ideally I would be using the Kubernetes provider in Terraform, but for this demo I am using kubernetes config files [here](k8s-cluster/).
 
-###Step-by-step on deployment:
-1. Clone the repo and change directory to iac.
-2. Set the context using Azure CLI to the correct subscription.
+Step-by-step on deployment:
+1. Clone the repo and change directory to [iac](iac/) in Azure CLI/.
+2. Set the context using Azure CLI to the correct subscription if not set by default.
 3. Initiate Terraform and perform plan and apply. This will create the number of required nodes. The below commands can also be seen as part of the Terraform output.
 
         Run the following command to connect to the kubernetes cluster:
@@ -40,4 +40,4 @@ Ideally I would be using the Kubernetes provider in Terraform, but for this demo
         $ kubectl apply -f https://github.com/Haroon-1/TechChallengeApp/raw/testing-app/k8s-cluster/autoscaler.yaml
 
 ###Video demo on the autoscaler:
-![demo](video.mkv)
+![video]https://youtu.be/pdE5YpcqUSQ
