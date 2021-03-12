@@ -1,6 +1,12 @@
 # Cloud Solution to the Servian TechChallenge
 
 ## Solution
+For this solution, I deployed the application on Azure with AKS using Terraform on a 2-node cluster with autoscaling enabled.
+*Pre-requisites include Azure CLI, Terraform and the AKS cli (kubectl). If using Cloud Shell, these are pre-installed.*
+
+Ideally I would be using the Kubernetes provider in Terraform to also then deploy the application inside the cluster, as well as use Azure Container Registry for the images and a service principal to manage the authentication for it. For the purpose of this challenge, I am using kubernetes config files located [here](k8s-cluster/).
+
+A few changes that I made are as below:
 1. Rebuilt the docker image to contain the database perimeters.
 2. Used golang:1.15-alpine image. Was unable to figure out the issue otherwise.
 3. Added the provided dependencies within the docker file.
@@ -12,9 +18,7 @@
 ### Screenshot for application tested through Azure (public address)
 ![oncloud](Screenshot_oncloud.jpg)
 
-## Deployed the application on Azure with AKS using Terraform on a 2-node cluster with autoscaling enabled.
-Pre-requisites include Azure CLI, Terraform and the AKS cli (kubectl). If using Cloud Shell, these are pre-installed.
-Ideally I would be using the Kubernetes provider in Terraform to also then deploy the application inside the clusters, but for this demo I am using kubernetes config files manually.[here](k8s-cluster/). 
+ 
 
 Step-by-step on deployment:
 1. Clone the repo and change directory to [iac](iac/) in Azure CLI/.
