@@ -109,11 +109,11 @@ $ kubectl get nodes
 
 Run the following command to deploy the application:
 
-$ kubectl apply -f https://github.com/Haroon-1/TechChallengeApp/raw/testing-app/k8s-cluster/deployment.yaml
+$ kubectl apply -f https://github.com/Haroon-1/TechChallengeApp/raw/master/k8s-cluster/all-deployments-and-svc.yaml
 
 Run the following command to set autoscaling:
 
-$ kubectl apply -f https://github.com/Haroon-1/TechChallengeApp/raw/testing-app/k8s-cluster/autoscaler.yaml
+$ kubectl apply -f https://github.com/Haroon-1/TechChallengeApp/raw/master/k8s-cluster/autoscaler.yaml
 
 CONFIGURE
 }
